@@ -1,0 +1,12 @@
+node_modules
+assets/origin
+
+.DS_Store
+.sass-cache/
+*.log
+*.orig
+__.*
+dist/svg-japan.js
+
+package-lock.json
+yarn.lock

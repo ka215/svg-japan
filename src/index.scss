@@ -1,0 +1,54 @@
+.svg-japan-container {
+  position: relative;
+  margin: 0 auto;
+  width: max-content;
+  height: max-content;
+  text-align: center;
+
+  svg {
+    margin: auto;
+    height: 100%;
+
+    path {
+      pointer-events: all;
+
+      &.prefecture-map {
+        transition: all 0.3s linear;
+      }
+    }
+  }
+}
+
+.svg-map-tips {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  background-color: #fafdff;
+  font-size: 13px;
+  padding: 0.5em 1em;
+  width: max-content;
+  min-width: 4em;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px 5px rgba(36,20,14,0.15);
+  transition: all 0.1s linear;
+
+  .region-name,
+  .prefecture-name {
+    position: relative;
+    margin: 0 auto;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .region-name::after {
+    content: '\2014';
+    position: relative;
+    right: -0.5em;
+    top: -0.1em;
+    color: #a0a0a0;
+  }
+}
