@@ -13,13 +13,13 @@
 
 <p align="center">
   <a href="#features">Features</a> •
-  <a href="#guick-start">Quick Start</a> •
+  <a href="#quick-start">Quick Start</a> •
   <a href="#usage">Usage</a> •
   <a href="#supported-devices">Supported Devices</a> •
   <a href="#documentation">Documentation</a> •
   <a href="#demonstration">Demonstration</a> •
   <a href="#creators">Creators</a> •
-  <a href="#license">License</a>
+  <a href="#copyright-and-license">License</a>
 </p>
 
 ![screenshot](https://raw.githubusercontent.com/ka215/svg-japan/main/assets/svg-japan.png)
