@@ -7,13 +7,9 @@
 <h4 align="center">A native JavaScript-built plugin that generates an interactive SVG-formatted map of Japan.</h4>
 
 <p align="center">
-
-![Version](https://img.shields.io/github/package-json/v/ka215/svg-japan)
-
-![Downloads](https://img.shields.io/github/downloads/ka215/svg-japan/total)
-
-[![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://raw.githubusercontent.com/ka215/svg-japan/main/LICENSE)
-
+  <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/ka215/svg-japan?style=flat-square">
+  <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/ka215/svg-japan/total">
+  <img alt="GitHub" src="https://img.shields.io/github/license/ka215/svg-japan">
 </p>
 
 <p align="center">
