@@ -22,7 +22,7 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://raw.githubusercontent.com/ka215/svg-japan/master/assets/svg-japan-intro.png)
+![screenshot](https://raw.githubusercontent.com/ka215/svg-japan/main/assets/svg-japan.png)
 
 ## Features
 
@@ -50,7 +50,7 @@ npm install svg-japan
 [Letest Release](https://github.com/ka215/svg-japan/releases/latest/)
 * Retrieve via CDN into your HTML
 ```HTML
-<script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@master/dist/svg-japan.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ka215/svg-japan@main/dist/svg-japan.min.js"></script>
 ```
 
 ## Usage
@@ -118,4 +118,4 @@ If you liked using this app or it has helped you in any way, I'd like you send m
 
 ## Copyright and license
 
-Code and documentation copyright 2011-2020 the [ka2](https://ka2.org/). Code released under the [MIT License](https://raw.githubusercontent.com/ka215/svg-japan/master/LICENSE).
+Code and documentation copyright 2020 the [ka2](https://ka2.org/). Code released under the [MIT License](https://raw.githubusercontent.com/ka215/svg-japan/main/LICENSE).
