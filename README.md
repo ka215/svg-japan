@@ -1,7 +1,5 @@
 <h1 align="center">
   <br>
-  <a href="#"><img src="https://raw.githubusercontent.com/ka215/svg-japan/master/assets/svg-japan.png" alt="SVG Japan" width="200"></a>
-  <br>
   SVG Japan
   <br>
 </h1>
