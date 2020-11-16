@@ -7,6 +7,9 @@
 <h4 align="center">A native JavaScript-built plugin that generates an interactive SVG-formatted map of Japan.</h4>
 
 <p align="center">
+![GitHub release](https://img.shields.io/github/release/ka215/svg-japan.svg)
+![GitHub All Releases](https://img.shields.io/github/downloads/ka215/svg-japan/total.svg)
+[![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://raw.githubusercontent.com/ka215/svg-japan/main/LICENSE)
 </p>
 
 <p align="center">
@@ -57,11 +60,11 @@ npm install svg-japan
 ```HTML
 <script src="/path/to/svg-japan.min.js"></script>
 ```
-1. Then mark up the element where you want to insert the map.
+2. Then mark up the element where you want to insert the map.
 ```HTML
 <div id="my-map-container"></div>
 ```
-1. Finally, instantiate the plugin class in your script.
+3. Finally, instantiate the plugin class in your script.
 ```js
 svgJapan({ element: "#my-map-container" })
 ```
