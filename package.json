@@ -41,6 +41,7 @@
     "cssnano": "^4.1.10",
     "eslint": "^7.11.0",
     "eslint-loader": "^4.0.2",
+    "events-polyfill": "^2.1.2",
     "glob": "^7.1.6",
     "mini-css-extract-plugin": "^0.11.2",
     "node-sass": "^4.14.1",
@@ -49,12 +50,5 @@
     "style-loader": "^1.2.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
-  },
-  "browserslist": [
-    "last 2 versions",
-    "not ie <= 10",
-    "not op_mini all",
-    "Android >= 4",
-    "iOS >= 10"
-  ]
+  }
 }

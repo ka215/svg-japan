@@ -91,9 +91,10 @@ document.addEventListener( 'DOMContentLoaded', function() {
 Please refer to the target device definition of JS transpiling (excerpt from "babel.config.js" below):
 ```
 targets: {
+  chrome: "67",
   edge: "17",
   firefox: "60",
-  chrome: "67",
+  ie: "11",
   safari: "11.1",
 },
 ```

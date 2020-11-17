@@ -1,4 +1,4 @@
-import { isObject, extend, hasProp, logger } from './_utils.js'
+import { isObject, isElement, extend, hasProp, logger } from './_utils.js'
 import { attributes, drawData } from './_prefectures.js'
 import { Defaults, Regions } from './_defaults.js'
 
@@ -33,7 +33,9 @@ class svgJapan {
         } else {
             this.map_container = document.createElement('div')
         }
-        this.map_container.classList.add('svg-japan-container')
+        if ( this.map_container && isElement( this.map_container ) ) {
+            this.map_container.classList.add('svg-japan-container')
+        }
 
         this.curX = 0
         this.curY = 0
@@ -55,40 +57,59 @@ class svgJapan {
     async createMap() {
         const map = await this._drawMap()
 
+        let self = this
+
         // Bind Events
         Array.prototype.forEach.call(map.querySelectorAll('path'), (prefecture) => {
             prefecture.addEventListener('mouseout', (evt) => {
                 if ( [ 'outline1','outline2' ].includes(evt.target.id) ) {
                     return false
                 }
-                let rId = parseInt(evt.target.dataset.region, 10)
-                if ( this.opts.regionality ) {
-                    Array.prototype.forEach.call(evt.target.parentNode.children, (elm) => {
-                        if ( elm.dataset.region == rId ) {
-                            elm.setAttributeNS(null, 'fill', elm.dataset.default)
+                let rId = parseInt(evt.target.getAttribute('data-region'), 10)
+                if ( self.opts.regionality ) {
+                    Array.prototype.forEach.call(evt.target.parentNode.childNodes, (elm) => {
+                        if ( parseInt(elm.getAttribute('data-region'), 10) == rId ) {
+                            elm.setAttributeNS(null, 'fill', elm.getAttribute('data-default'))
                         }
                     })
                 }
-                evt.target.setAttributeNS(null, 'fill', evt.target.dataset.default)
-                evt.target.classList.remove('active')
-                this.showTips()
+                evt.target.setAttributeNS(null, 'fill', evt.target.getAttribute('data-default'))
+                if ( evt.target.classList ) {
+                    evt.target.classList.remove('active')
+                } else {
+                    // For ie11
+                    let _cls = evt.target.getAttribute('class').split(' ')
+                    if ( _cls.includes('active') ) {
+                        evt.target.setAttribute('class', _cls.filter((v) => v !== 'active').join(' '))
+                    }
+                }
+                self.showTips()
             }, false)
-            prefecture.addEventListener('mouseover', (evt) => {
+                prefecture.addEventListener('mouseover', (evt) => {
                 if ( [ 'outline1','outline2' ].includes(evt.target.id) ) {
                     return false
                 }
                 let cId = parseInt(evt.target.id.replace('pref-', ''), 10),
-                    rId = parseInt(evt.target.dataset.region, 10),
+                    rId = parseInt(evt.target.getAttribute('data-region'), 10),
                     hoverColor = this.opts.activeColor || '#D70035'
-                evt.target.classList.add('active')
+                if ( evt.target.classList ) {
+                    evt.target.classList.add('active')
+                } else {
+                    // For ie11
+                    let _cls = evt.target.getAttribute('class').split(' ')
+                    if ( ! _cls.includes('active') ) {
+                        _cls.push('active')
+                        evt.target.setAttribute('class', _cls.join(' '))
+                    }
+                }
                 evt.target.setAttributeNS(null, 'fill', hoverColor)
-                if ( this.opts.regionality ) {
-                    Array.prototype.forEach.call(evt.target.parentNode.children, (elm) => {
-                        if ( elm.dataset.region == rId && cId != parseInt( elm.id.replace('pref-', ''), 10 ) ) {
-                            let _tmp = this.regions.find( ({ id }) => id == rId ),
+                if ( self.opts.regionality ) {
+                    Array.prototype.forEach.call(evt.target.parentNode.childNodes, (elm) => {
+                        if ( parseInt(elm.getAttribute('data-region'), 10) == rId && cId != parseInt( elm.id.replace('pref-', ''), 10 ) ) {
+                            let _tmp = self.regions.find( ({ id }) => id == rId ),
                                 activeRegionColor = _tmp ? _tmp.active : null
-                            if ( this.opts.regions && this.opts.regions.length > 0 ) {
-                                let _rg = this.opts.regions.find( ({ id }) => id == rId )
+                            if ( self.opts.regions && self.opts.regions.length > 0 ) {
+                                let _rg = self.opts.regions.find( ({ id }) => id == rId )
                                 if ( _rg && hasProp( 'active', _rg ) ) {
                                     activeRegionColor = _rg.active
                                 }
@@ -99,13 +120,13 @@ class svgJapan {
                         }
                     })
                 }
-                this.showTips()
+                self.showTips()
             }, false)
-            prefecture.addEventListener('click', (evt) => {
+                prefecture.addEventListener('click', (evt) => {
                 if ( [ 'outline1','outline2' ].includes(evt.target.id) ) {
                     return false
                 }
-                this.selectedMap(evt.target)
+                self.selectedMap(evt.target)
             }, false)
         })
     }
@@ -152,7 +173,12 @@ class svgJapan {
                 pathElm.setAttributeNS(null, 'fill', fillColor)
                 pathElm.setAttributeNS(null, 'stroke', 'none')
                 pathElm.setAttributeNS(null, 'd', this.svg_data[key][mapType])
-                pathElm.classList.add('prefecture-map')
+                if ( pathElm.classList ) {
+                    pathElm.classList.add('prefecture-map')
+                } else {
+                    // For ie11
+                    pathElm.setAttribute('class', 'prefecture-map')
+                }
                 svgElm.appendChild(pathElm)
             })
             let strokeLayer = document.createElementNS(SVG_NAMESPACE, 'g')
@@ -162,13 +188,14 @@ class svgJapan {
                 // draw outlines
                 Object.keys(this.svg_atts.strokes).forEach((key) => {
                     if ( [ 'outline1', 'outline2' ].includes(key) ) {
-                        let linePath = document.createElementNS(SVG_NAMESPACE, 'path')
+                        let linePath = document.createElementNS(SVG_NAMESPACE, 'path'),
+                            lineWidth = this.svg_atts.strokes[key].strokeWidth
 
                         if ( this.svg_atts.strokes[key].path[mapType] !== '' ) {
                             linePath.setAttributeNS(null, 'id', key)
                             linePath.setAttributeNS(null, 'fill', this.opts.strokeColor || this.svg_atts.strokes[key].stroke)
                             linePath.setAttributeNS(null, 'stroke', this.opts.strokeColor || this.svg_atts.strokes[key].stroke)
-                            linePath.setAttributeNS(null, 'stroke-width', this.svg_atts.strokes[key].strokeWidth)
+                            linePath.setAttributeNS(null, 'stroke-width', mapType === 'deform' ? 4.5 : lineWidth)
                             linePath.setAttributeNS(null, 'd', this.svg_atts.strokes[key].path[mapType])
                             strokeLayer.appendChild(linePath)
                         }
@@ -187,7 +214,11 @@ class svgJapan {
                 strokeLayer.appendChild(divPath)
             }
             if ( strokeLayer.hasChildNodes ) {
-                svgElm.prepend(strokeLayer)
+                if ( svgElm.prepend ) {
+                    svgElm.prepend(strokeLayer)
+                } else {
+                    svgElm.insertBefore(strokeLayer, svgElm.childNodes[0])
+                }
             }
             svgElm.style.position = 'relative'
             svgElm.addEventListener('mousemove', (evt) => {
@@ -214,12 +245,24 @@ class svgJapan {
             return
         }
         let _activePath = this.map_container.querySelector('path.active'),
-            activePref = _activePath ? _activePath.dataset : null,
+            activePref = null,//_activePath ? _activePath.dataset : null,
             contents = []
+        if ( _activePath && ! activePref && _activePath.getAttribute('data-name') ) {
+            // For all within ie11
+            activePref = {
+                region: parseInt( _activePath.getAttribute('data-region'), 10 ),
+                name: _activePath.getAttribute('data-name'),
+                default: _activePath.getAttribute('data-default'),
+            }
+        }
         if ( activePref ) {
             const tips = document.createElement('div')
             tips.id = 'svg-japan-tips'
-            tips.classList.add('svg-map-tips')
+            if ( tips.classList ) {
+                tips.classList.add('svg-map-tips')
+            } else {
+                tips.setAttribute('class', 'svg-map-tips')
+            }
             if ( this.opts.regionality ) {
                 let regionList = this.opts.regions || this.regions,
                     _match = regionList.find( ({ id }) => id == activePref.region ),
