@@ -1,5 +1,5 @@
-import 'babel-polyfill'
-import 'events-polyfill'
+//import 'babel-polyfill'
+//import 'events-polyfill'
 import './index.scss'
 import svgJapan from './_core-class'
 

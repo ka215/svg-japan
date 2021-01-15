@@ -5,7 +5,8 @@ const autoprefixer = require('autoprefixer')
 
 const srcDir = './src'
 const entryObj = {
-    'svg-japan' : [ path.resolve(__dirname, srcDir, 'index.js') ],
+    'svg-japan' : [ 'babel-polyfill', 'events-polyfill', path.resolve(__dirname, srcDir, 'index.js') ],
+    'svg-japan.nopolyfill' : [ path.resolve(__dirname, srcDir, 'index.js') ]
     //'svg-japan': [ path.resolve(__dirname, srcDir, 'index.scss') ]
 }
 
