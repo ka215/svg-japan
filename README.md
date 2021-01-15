@@ -8,7 +8,9 @@
 
 <p align="center">
   <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/ka215/svg-japan?style=flat-square">
-  <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/ka215/svg-japan/total">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/ka215/svg-japan">
+  <img alt="npm" src="https://img.shields.io/npm/dt/svg-japan">
+  <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/ka215/svg-japan">
   <img alt="GitHub" src="https://img.shields.io/github/license/ka215/svg-japan">
 </p>
 
