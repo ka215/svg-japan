@@ -1,6 +1,6 @@
 {
   "name": "svg-japan",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A native JavaScript-built plugin that generates an interactive SVG-formatted map of Japan",
   "main": "index.js",
   "scripts": {
